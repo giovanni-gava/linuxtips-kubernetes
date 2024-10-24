@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: giropops
+  name: giropops
+spec:
+  containers:
+  - image: nginx
+    name: giropops
+    ports:
+    - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+
+# Esse é um exemplo de um arquivo de configuração de um Pod. 
+# O arquivo é um arquivo YAML que descreve um Pod que executa um contêiner Nginx.
+# o mesmo foi criado com o comando kubectl run giropops --image=nginx --restart=Always --port=80 --dry-run -o yaml > pod.yaml
+# O dry-run é um recurso que permite que você veja o que seria criado sem realmente criar o objeto.
