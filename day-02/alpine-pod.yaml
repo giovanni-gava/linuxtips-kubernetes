@@ -9,8 +9,14 @@ metadata: # Metadados do recurso consiste em informações sobre o recurso
 spec: # Especificações do recurso
   containers: # Lista de containers que serão executados no Pod
   - image: nginx # Imagem do container
-    name: girus # Nome do container
+    name: nginx # Nome do container
     resources: {} # Recursos do container
+  - image: busybox
+    name: busybox
+    args: # É possivel passar argumentos para o container, exemplo: ["sleep", "3600"] (o container vai dormir por 1 hora)
+    - sleep
+    - "600"
+    resources: {}
   dnsPolicy: ClusterFirst # Política de DNS do Pod (ClusterFirst ou Default)
   restartPolicy: Always # Política de reinício do Pod (Always, OnFailure, Never)
 status: {} # Status do Pod (informações sobre o estado atual do Pod) que as opcoes sao Pending, Running, Succeeded, Failed, Unknown
