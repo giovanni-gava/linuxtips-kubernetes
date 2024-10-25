@@ -8,7 +8,7 @@ metadata: # Metadados do recurso consiste em informações sobre o recurso
   name: girus # Nome do recurso
 spec: # Especificações do recurso
   containers: # Lista de containers que serão executados no Pod
-  - image: alpine # Imagem do container
+  - image: nginx # Imagem do container
     name: girus # Nome do container
     resources: {} # Recursos do container
   dnsPolicy: ClusterFirst # Política de DNS do Pod (ClusterFirst ou Default)
