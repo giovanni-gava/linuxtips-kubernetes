@@ -4,8 +4,9 @@ metadata:
   labels:
     app: nginx-deployment
   name: nginx-deployment
+  namespace: giropops
 spec:
-  replicas: 3 # Numero de pods
+  replicas: 10 # Numero de pods
   selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
     matchLabels:
       app: nginx-deployment
@@ -16,7 +17,7 @@ spec:
         app: nginx-deployment
     spec:
       containers:
-      - image: nginx
+      - image: nginx:1.15.0
         name: nginx
         resources:
           limits:
