@@ -1,0 +1,23 @@
+apiVersion: v1 # Versão da API do Kubernetes
+kind: Pod # Tipo de recurso que estamos criando
+metadata: # Metadados do recurso consiste em informações sobre o recurso
+  labels: # Rótulos do recurso (chave-valor) servem para identificar o recurso
+    run: giropops
+  name: giropops # Nome do recurso
+spec: # Especificações do recurso
+  containers: # Lista de containers que serão executados no Pod
+  - image: ubuntu
+    name: ubuntu
+    args: # É possivel passar argumentos para o container, exemplo: ["sleep", "3600"] (o container vai dormir por 1 hora)
+    - sleep
+    - "1800"
+    resources:
+      limits: # Limites de recursos do container
+        memory: "128Mi" # Limite de memória do container
+        cpu: "0.5" # Limite de CPU do container
+      requests: # Requisições de recursos do container
+        memory: "64Mi" # Requisição de memória do container
+        cpu: "0.3" # Requisição de CPU do container
+  dnsPolicy: ClusterFirst # Política de DNS do Pod (ClusterFirst ou Default)
+  restartPolicy: Always # Política de reinício do Pod (Always, OnFailure, Never)
+
