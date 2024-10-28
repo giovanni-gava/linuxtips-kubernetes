@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deployment
+  name: nginx-deployment
+spec:
+  replicas: 1 # Numero de pods que serão criados a partir do deployment (replicaset)
+  selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
+    matchLabels:
+      app: nginx-deployment
+  strategy: {}
+  template: # Template do pod que será criado
+    metadata: # Labels do pod
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx:1.19.1
+        name: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "0.5"
+          requests:
+            memory: "64Mi"
+            cpu: "0.3"
+
