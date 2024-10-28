@@ -3,13 +3,16 @@ kind: Deployment
 metadata:
   labels:
     app: nginx-deployment
+    environment: dev
   name: nginx-deployment
   namespace: giropops
 spec:
-  replicas: 10 # Numero de pods
+  replicas: 24 # Numero de pods
+  revisionHistoryLimit: 3 # Numero de revisoes que o deployment vai manter
   selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
     matchLabels:
       app: nginx-deployment
+      environment: dev
   strategy:
     type: RollingUpdate # Tipo de atualizacao 
     rollingUpdate: # Atualizacao dos pods de forma gradual, um a um para nao impactar o servico
@@ -19,6 +22,7 @@ spec:
     metadata: # Labels do pod
       labels:
         app: nginx-deployment
+        environment: dev
     spec:
       containers:
       - image: nginx:1.17.0
