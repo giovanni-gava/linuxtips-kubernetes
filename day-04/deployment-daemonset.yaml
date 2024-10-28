@@ -1,28 +1,35 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   labels:
-    app: nginx-daemonset
-  name: nginx-daemonset
+    app: node-exporter-daemonset
+  name: node-exporter-daemonset
 spec:
-  replicas: 1 # Numero de pods que serão criados a partir do deployment (replicaset)
-  selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
+  selector:
     matchLabels:
-      app: nginx-daemonset
-  strategy: {}
-  template: # Template do pod que será criado
-    metadata: # Labels do pod
+      app: node-exporter-daemonset
+  template: #Template consiste em informações sobre o pod
+    metadata:
       labels:
-        app: nginx-daemonset
+        app: node-exporter-daemonset
     spec:
+      hostNetwork: true #Habilita o acesso a rede diretamente do host ou seja o node
       containers:
-      - image: nginx:1.19.1
-        name: nginx
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "0.5"
-          requests:
-            memory: "64Mi"
-            cpu: "0.3"
+      - name: node-exporter
+        image: prom/node-exporter:latest
+        ports:
+        - containerPort: 9100
+          hostPort: 9100
+        volumeMounts: #Volume mounts é um array de objetos que mapeia volumes para o container e nao o volume em si
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys #Monta o diretório /host/sys no container, o /host/sys é um diretório do host
+          readOnly: true
+      volumes: #Aqui sim é definido o volume
+      - name: proc
+        hostPath: /proc
+      - name: sys
+        hostPath: /sys
 
