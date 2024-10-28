@@ -29,7 +29,9 @@ spec:
           readOnly: true
       volumes: #Aqui sim é definido o volume
       - name: proc
-        hostPath: /proc
+        hostPath:
+          path: /proc
       - name: sys
-        hostPath: /sys
+        hostPath:
+          path: /sys
 
