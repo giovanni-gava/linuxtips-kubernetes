@@ -10,14 +10,18 @@ spec:
   selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
     matchLabels:
       app: nginx-deployment
-  strategy: {}
+  strategy:
+    type: RollingUpdate # Tipo de atualizacao 
+    rollingUpdate: # Atualizacao dos pods de forma gradual, um a um para nao impactar o servico
+      maxSurge: 1 # Numero de pods a mais que podem ser criados, alem do numero de replicas para acelerar a atualizacao
+      maxUnavailable: 1 # Numero de pods que podem ficar indisponiveis durante a atualizacao
   template: # Template do pod que será criado
     metadata: # Labels do pod
       labels:
         app: nginx-deployment
     spec:
       containers:
-      - image: nginx:1.15.0
+      - image: nginx:1.17.0
         name: nginx
         resources:
           limits:
