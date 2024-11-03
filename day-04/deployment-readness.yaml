@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deployment
+  name: nginx-deployment
+spec:
+  replicas: 3 # Numero de pods que serão criados a partir do deployment (replicaset)
+  selector: # Selector consiste em um conjunto de labels que devem ser iguais aos labels do pod
+    matchLabels:
+      app: nginx-deployment
+  strategy: {}
+  template: # Template do pod que será criado
+    metadata: # Labels do pod
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx:1.19.1
+        name: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "0.5"
+          requests:
+            memory: "64Mi"
+            cpu: "0.3"
+        livenessProbe: #LiveNessProbe é um objeto que define como o kubernetes vai verificar se o container está saudável ou não 
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe: # Onde definimos a nossa probe de leitura
+          httpGet: # O tipo de teste que iremos executar, neste caso, iremos executar um teste HTTP
+            path: / # O caminho que iremos testar
+            port: 80 # A porta que iremos testar
+          initialDelaySeconds: 10 # O tempo que iremos esperar para executar a primeira vez a probe
+          periodSeconds: 10 # De quanto em quanto tempo iremos executar a probe
+          timeoutSeconds: 5 # O tempo que iremos esperar para considerar que a probe falhou
+          successThreshold: 2 # O número de vezes que a probe precisa passar para considerar que o container está pronto
+          failureThreshold: 3 # O número de vezes que a probe precisa falhar para considerar que o container não está pronto
+
+
+
+
+
