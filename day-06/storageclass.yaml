@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: giropops
+provisioner: kubernetes.io/no-provisioner # Deixar como no-provisioner boa pratica pois aponta que ira usar um storage local
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
