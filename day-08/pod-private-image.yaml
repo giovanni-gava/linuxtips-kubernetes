@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-private-image
+spec:
+  containers:
+  - name: container-private-image
+    image: my-pythonapp:1.0
+  imagePullSecrets:
+  #Configuração para acessar o repositório privado do Docker Hub
+  - name: dockerhub-secret #Nome do secret criado
