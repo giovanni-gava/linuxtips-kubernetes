@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-https
+  labels:
+    app: pix
+spec:
+  containers:
+  - name: container-gava
+    image: nginx
+    ports:
+    - containerPort: 80
+    - containerPort: 443
+    volumeMounts:
+    - name: configmap-volume
+      mountPath: /etc/configmap-volume
+      subPath: nginx.conf
+    - name: nginx-tls
+      mountPath: /etc/nginx/ssl
+  volumes:
+  - name: configmap-volume
+    configMap:
+      name: nginx-config
+  - name: nginx-tls
+    secret:
+      secretName: my-tls-secret
+      items:
+      - key: certificado.crt
+        path: secrets/certificado.crt
+      - key: chave-privada.key
+        path: secrets/chave-privada.key
