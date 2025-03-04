@@ -1,0 +1,10 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: developer-role
+spec:
+  request:
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 31536000
+  usages:
+  - client auth
